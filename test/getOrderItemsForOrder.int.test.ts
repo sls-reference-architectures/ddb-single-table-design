@@ -87,7 +87,8 @@ describe('When using OrderItems repository to get items for an order', () => {
   };
 
   const getOrderItemsWithRetry = async (
-    orderId: string, expectedNumber = 1,
+    orderId: string,
+    expectedNumber = 1,
   ): Promise<OrderItem[]> => {
     const result = await retry<OrderItem[]>(async () => {
       const orderItems = await sut.getOrderItemsByOrderId(orderId);

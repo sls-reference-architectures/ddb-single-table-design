@@ -63,7 +63,8 @@ describe('When using Orders repository', () => {
   };
 
   const getOrdersByUserWithRetry = async (
-    username: string, expectedCount = 1,
+    username: string,
+    expectedCount = 1,
   ): Promise<Order[]> => {
     const result = await retry<Order[]>(async () => {
       const orders = await sut.getOrdersByUser(username);

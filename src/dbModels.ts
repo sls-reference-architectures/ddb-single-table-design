@@ -1,5 +1,6 @@
-import { Table, Entity } from 'dynamodb-toolbox';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+import { Table, Entity } from 'dynamodb-toolbox';
+import { ulid } from 'ulid';
 
 import config from './config';
 import { UserProfile, Order, OrderItem } from './models';
@@ -78,6 +79,13 @@ const generateOrderModel = (table: Table): Entity<Order> => {
   const setOrderGSI1SK = setOrderPk;
   const setOrderGSI2PK = setOrderPk;
   const setOrderGSI2SK = (data: Order) => (`${data.status.toUpperCase()}#${new Date().toISOString()}`);
+  const setOrderGSI3PK = (data: Order) => {
+    if (data.status.toLowerCase() === 'placed') {
+      return ulid();
+    }
+
+    return undefined;
+  };
 
   return new Entity({
     name: 'Order',
@@ -89,6 +97,7 @@ const generateOrderModel = (table: Table): Entity<Order> => {
       gsi1sk: { hidden: true, default: setOrderGSI1SK },
       gsi2pk: { hidden: true, default: setOrderGSI2PK },
       gsi2sk: { hidden: true, onUpdate: true, default: setOrderGSI2SK },
+      gsi3pk: { hidden: true, onUpdate: true, default: setOrderGSI3PK },
       username: { required: 'always' },
       status: { required: 'always' },
       orderId: 'string',

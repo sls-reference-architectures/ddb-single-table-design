@@ -1,3 +1,4 @@
+import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import { NotFound } from 'http-errors';
 
 import ECommerceModels from './dbModels';
@@ -50,9 +51,15 @@ export default class OrdersRepository {
   }
 
   async updateStatus(params: UpdateStatusParams): Promise<void> {
-    await this.models.orders.update(params);
+    const updateParameters: ToolboxUpdateParams = {};
+    if (orderIsNoLongerPlaced(params)) {
+      updateParameters.REMOVE = ['gsi3pk'];
+    }
+    await this.models.orders.update(params, {}, updateParameters);
   }
 }
+
+const orderIsNoLongerPlaced = (params: UpdateStatusParams): boolean => (params.status.toLowerCase() !== 'placed');
 
 interface OrdersByStatusParams {
   status: string,
@@ -63,4 +70,8 @@ interface UpdateStatusParams {
   orderId: string,
   status: string,
   username: string,
+}
+
+interface ToolboxUpdateParams extends Partial<DocumentClient.UpdateItemInput> {
+  REMOVE?: string[],
 }

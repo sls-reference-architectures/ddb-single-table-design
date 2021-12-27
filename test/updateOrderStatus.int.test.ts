@@ -43,6 +43,38 @@ describe('When updating order status for a user', () => {
     expect(gsi2sk).toStartWith('SHIPPED#');
   });
 
+  describe('to placed', () => {
+    it('should create the GSI3-PK', async () => {
+      // ARRANGE
+      const originalOrder = new OrderBuilder().withStatus('new').build();
+      await injectTestOrder(originalOrder);
+      const placedOrder = { ...originalOrder, status: 'placed' };
+
+      // ACT
+      await sut.updateStatus(placedOrder);
+
+      // ASSERT
+      const { gsi3pk } = await fetchOrderWithRetry(originalOrder.orderId, 'placed');
+      expect(gsi3pk).toBeString();
+    });
+  });
+
+  describe('from placed', () => {
+    it('should remove the GSI3-PK', async () => {
+      // ARRANGE
+      const originalOrder = new OrderBuilder().withStatus('placed').build();
+      await injectTestOrder(originalOrder);
+      const placedOrder = { ...originalOrder, status: 'shipped' };
+
+      // ACT
+      await sut.updateStatus(placedOrder);
+
+      // ASSERT
+      const { gsi3pk } = await fetchOrderWithRetry(originalOrder.orderId, 'shipped');
+      expect(gsi3pk).toBeUndefined();
+    });
+  });
+
   const injectTestOrder = async (testOrder: Order): Promise<void> => {
     await injectOrder(testOrder);
     testOrders.push(testOrder);

@@ -21,7 +21,7 @@ Alex describes some data access patterns in his talk that I've listed below, wit
 3. Get orders for user
 4. Get order items for order
 5. Get orders for user by status
-6. Get (first few) open orders
+6. Get (first few) placed orders
 
 ### ERD
 ![](./docs/ERD.png)
@@ -44,7 +44,7 @@ Below is how each primary key is mapped for each entity:
 |3|Get orders for user|QUERY PK = USER#\<username\> AND SK BeginsWith(ORDER#)|
 |4|Get order items for order|QUERY GSI1PK = ORDER#\<orderId\> AND SK BeginsWith(ITEM#)|
 |5|Get orders for user by status (e.g., 'SHIPPED')|QUERY GSI2PK = USER#\<username\> AND GSI2SK BeginsWith('SHIPPED#')|
-|6|Get top 3 open orders|SCAN GSI3PK|
+|6|Get top 3 placed orders|SCAN GSI3PK LIMIT 3|
 
 ### Architecture
 This project models how to implement single-table-design patterns. As such, it needs nothing higher than a Repository layer. The repo pulls in models defined in a separate file. The models file is mostly key schema mapping for [dynamodb-toolbox](https://github.com/jeremydaly/dynamodb-toolbox) so it can do the heavy lifting for us.

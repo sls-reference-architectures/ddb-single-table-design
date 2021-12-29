@@ -9,7 +9,7 @@ provider:
   runtime: nodejs14.x
   stage: dev
   deploymentBucket:
-    name: com.sethorell.deploys
+    name: com.reference-architecture.deploys
     serverSideEncryption: AES256
   
 # NOTE - I do not recommend managing DynamoDB inside the project that will use it.

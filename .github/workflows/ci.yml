@@ -6,6 +6,8 @@ name: CI & Test
 on:
   push:
     branches: [master]
+  schedule:
+    - cron: 0 13 * * *
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_REGION: us-east-1

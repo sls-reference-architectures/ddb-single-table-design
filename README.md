@@ -1,6 +1,7 @@
 # Reference Architecture: DDB Single-Table Design
 
 This set of data models comes from Alex DeBrie's 2019 re:Invent talk "Data modeling with Amazon DynamoDB (CMY304)"
+
 [![](http://i3.ytimg.com/vi/DIQVJqiSUkE/hqdefault.jpg)](https://youtu.be/DIQVJqiSUkE) 
 
 ## To Deploy and Run

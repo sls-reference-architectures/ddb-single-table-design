@@ -1,6 +1,7 @@
 # Reference Architecture: DDB Single-Table Design
 
-This set of data models comes from Alex DeBrie's 2019 re:Invent talk "Data modeling with Amazon DynamoDB (CMY304)" [![](http://i3.ytimg.com/vi/DIQVJqiSUkE/hqdefault.jpg)](https://youtu.be/DIQVJqiSUkE) 
+This set of data models comes from Alex DeBrie's 2019 re:Invent talk "Data modeling with Amazon DynamoDB (CMY304)"
+[![](http://i3.ytimg.com/vi/DIQVJqiSUkE/hqdefault.jpg)](https://youtu.be/DIQVJqiSUkE) 
 
 ## To Deploy and Run
 First, do whatever is necessary to have CLI access to your AWS account (you can quickly verify this with `aws s3 ls` or similar). The serverless file does nothing else but create the DynamoDB table.

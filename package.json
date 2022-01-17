@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf .build && npx tsc",
     "test": "npm run lint && npx jest unit.test.ts --",
-    "test:int": "NODE_ENV=dev npx jest int.test.ts",
+    "test:int": "NODE_ENV=dev npx jest int.test.ts --testTimeout=30000",
     "lint": "eslint . --ext .ts",
     "prepare": "husky install",
     "deploy": "npx sls deploy -s dev"

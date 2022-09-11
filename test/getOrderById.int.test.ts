@@ -27,8 +27,10 @@ describe('When using Orders repository', () => {
 
     it('should throw Not Found (404) for non-existing order', async () => {
       // ARRANGE
+      const nonExistentId = 'I do not exist';
+
       // ACT
-      const orderAction = () => sut.getOrderById('do not exist');
+      const orderAction = () => sut.getOrderById(nonExistentId);
 
       // ASSERT
       await expect(orderAction()).rejects.toThrow(/Not Found/);

@@ -14,3 +14,7 @@ interface DbMetadata {
   gsi2pk: string,
   gsi3pk: string,
 }
+
+export interface placeholder {
+  id: string;
+}

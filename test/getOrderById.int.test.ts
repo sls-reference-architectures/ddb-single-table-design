@@ -33,7 +33,7 @@ describe('When using Orders repository', () => {
       const orderAction = () => sut.getOrderById(nonExistentId);
 
       // ASSERT
-      await expect(orderAction()).rejects.toThrow(/Not Found/);
+      await expect(orderAction()).rejects.toThrow(/not found/i);
     });
   });
 

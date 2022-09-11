@@ -19,6 +19,8 @@ Resources:
           AttributeType: S
         - AttributeName: gsi3pk
           AttributeType: S
+        - AttributeName: gsi4pk
+          AttributeType: S
       KeySchema:
         - AttributeName: pk
           KeyType: HASH
@@ -44,6 +46,12 @@ Resources:
         - IndexName: GSI-3
           KeySchema:
             - AttributeName: gsi3pk
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+        - IndexName: GSI-4
+          KeySchema:
+            - AttributeName: gsi4pk
               KeyType: HASH
           Projection:
             ProjectionType: ALL

@@ -31,7 +31,7 @@ export default class OrderBuilder {
 }
 
 const generateTestOrder = (
-  username: string = faker.internet.userName(),
+  username = `${faker.internet.userName()}_${ulid()}`,
 ): Order => ({
   username,
   orderId: ulid(),

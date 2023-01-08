@@ -1,10 +1,13 @@
 service: ddb-single-table-design
 
+frameworkVersion: '3'
+
 custom:
   stage: ${opt:stage, self:provider.stage}
   tableName: ${self:custom.stage}-${self:service}
 
 provider:
+  logRetentionInDays: 7
   name: aws
   runtime: nodejs14.x
   stage: dev

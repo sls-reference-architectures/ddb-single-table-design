@@ -95,7 +95,7 @@ const fetchOrderWithRetry = async (orderId: string, status: string): Promise<Ord
     }
 
     return order;
-  });
+  }, { retries: 3 });
 
   return result;
 };

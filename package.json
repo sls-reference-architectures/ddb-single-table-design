@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/sls-reference-architectures/ddb-single-table-design#readme",
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.1",
+    "@tsconfig/node14": "^14.1.0",
     "@types/async-retry": "^1.4.3",
     "@types/faker": "^5.5.7",
     "@types/jest": "^27.4.0",

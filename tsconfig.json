@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/node14/tsconfig",
+  "extends": "@tsconfig/node18/tsconfig",
   "compilerOptions": {
     "outDir": ".build",
     "sourceMap": true

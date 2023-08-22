@@ -1,9 +1,7 @@
 module.exports = {
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.jest.json',
-    },
+  testEnvironment: 'node',
+  transform: {
+    '^.+\\.(t|j)sx?$': '@swc/jest',
   },
-  preset: 'ts-jest',
   setupFilesAfterEnv: ['./test/setupFramework.ts'],
 };

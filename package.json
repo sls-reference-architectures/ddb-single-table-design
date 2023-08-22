@@ -44,7 +44,7 @@
   "dependencies": {
     "@dazn/lambda-powertools-logger": "^1.28.1",
     "@types/config": "^0.0.40",
-    "@types/http-errors": "^1.8.1",
+    "@types/http-errors": "^2.0.1",
     "aws-sdk": "^2.1441.0",
     "config": "^3.3.6",
     "dynamodb-toolbox": "^0.3.4",

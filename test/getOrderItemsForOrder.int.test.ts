@@ -97,7 +97,7 @@ describe('When using OrderItems repository to get items for an order', () => {
       }
 
       return orderItems;
-    });
+    }, { retries: 3 });
 
     return result;
   };

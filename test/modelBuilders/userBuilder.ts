@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Address, UserProfile } from '../../src/models';
 
 export default class UserBuilder {
@@ -17,7 +17,7 @@ const generateTestUser = (): UserProfile => ({
   username: faker.internet.userName(),
   dateOfBirth: faker.date.past().toISOString(),
   email: faker.internet.email(),
-  fullName: faker.name.findName(),
+  fullName: faker.person.fullName(),
   addresses: {
     home: generateAddress(),
   },

@@ -1,5 +1,5 @@
 import retry from 'async-retry';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { Order } from '../src/models';
 import OrdersRepository from '../src/ordersRepository';

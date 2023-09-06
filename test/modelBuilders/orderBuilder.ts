@@ -1,4 +1,4 @@
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { ulid } from 'ulid';
 import { Address, Order } from '../../src/models';
 
@@ -36,7 +36,7 @@ const generateTestOrder = (
   username,
   orderId: ulid(),
   shippingAddress: generateAddress(),
-  status: faker.random.arrayElement(['new', 'shipped', 'canceled']),
+  status: faker.helpers.arrayElement(['new', 'shipped', 'canceled']),
 });
 
 const generateAddress = (): Address => ({

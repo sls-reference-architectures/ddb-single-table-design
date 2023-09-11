@@ -40,8 +40,8 @@ const generateTestOrder = (
 });
 
 const generateAddress = (): Address => ({
-  street: faker.address.streetAddress(),
-  postalCode: faker.address.zipCode(),
-  state: faker.address.state(),
-  countryCode: faker.address.countryCode(),
+  street: faker.location.streetAddress(),
+  postalCode: faker.location.zipCode(),
+  state: faker.location.state(),
+  countryCode: faker.location.countryCode(),
 });

@@ -5,7 +5,7 @@ import { ulid } from 'ulid';
 import config from './config';
 import { UserProfile, Order, OrderItem } from './models';
 
-const documentClient = new DocumentClient();
+const documentClient = new DocumentClient({ region: 'us-east-1' });
 
 class ECommerceModels {
   private usersEntity: Entity<UserProfile>;

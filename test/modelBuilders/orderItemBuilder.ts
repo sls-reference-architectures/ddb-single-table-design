@@ -29,5 +29,5 @@ const generateTestOrderItem = (
   itemId: ulid(),
   productName: faker.commerce.productName(),
   price: +faker.commerce.price(),
-  quantity: faker.datatype.number({ min: 1, max: 10 }),
+  quantity: faker.number.int({ min: 1, max: 10 }),
 });

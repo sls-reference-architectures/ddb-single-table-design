@@ -1,17 +1,18 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table, Entity } from 'dynamodb-toolbox';
 import { ulid } from 'ulid';
 
 import config from './config';
 import { UserProfile, Order, OrderItem } from './models';
+import getDocumentClient from './documentClient';
 
-const documentClient = new DocumentClient({ region: 'us-east-1' });
+const documentClient = getDocumentClient();
 
 class ECommerceModels {
-  private usersEntity: Entity<UserProfile>;
-  private ordersEntity: Entity<Order>;
-  private orderItemsEntity: Entity<OrderItem>;
-  private tableReference: Table;
+  private usersEntity: Entity<'UserProfile', any, any, any, true>;
+  private ordersEntity: Entity<'Order', any, any, any, true>;
+  private orderItemsEntity: Entity<'OrderItem', any, any, any, true>;
+  private tableReference: Table<'string', 'pk', 'sk'>;
 
   constructor() {
     this.tableReference = generateECommerceTable();
@@ -20,24 +21,24 @@ class ECommerceModels {
     this.orderItemsEntity = generateOrderItemModel(this.tableReference);
   }
 
-  public get orders(): Entity<Order> {
+  public get orders() {
     return this.ordersEntity;
   }
 
-  public get users(): Entity<UserProfile> {
+  public get users() {
     return this.usersEntity;
   }
 
-  public get orderItems(): Entity<OrderItem> {
+  public get orderItems() {
     return this.orderItemsEntity;
   }
 
-  public get table(): Table {
+  public get table() {
     return this.tableReference;
   }
 }
 
-const generateECommerceTable = (): Table => {
+const generateECommerceTable = () => {
   const ECommerceTable = new Table({
     name: config.tableName,
     partitionKey: 'pk',
@@ -52,7 +53,7 @@ const generateECommerceTable = (): Table => {
   return ECommerceTable;
 };
 
-const generateUserModel = (table: Table): Entity<UserProfile> => {
+const generateUserModel = (table: Table<string, 'pk', 'sk'>) => {
   const setUserPk = (data: UserProfile) => (`USER#${data.username}`);
   const setUserSk = (data: UserProfile) => (`#PROFILE#${data.username}`);
 
@@ -72,7 +73,7 @@ const generateUserModel = (table: Table): Entity<UserProfile> => {
   });
 };
 
-const generateOrderModel = (table: Table): Entity<Order> => {
+const generateOrderModel = (table: Table<string, 'pk', 'sk'>) => {
   const setOrderPk = (data: Order) => (`USER#${data.username}`);
   const setOrderSk = (data: Order) => (`ORDER#${data.orderId}`);
   const setOrderGSI1PK = setOrderSk;
@@ -107,7 +108,7 @@ const generateOrderModel = (table: Table): Entity<Order> => {
   });
 };
 
-const generateOrderItemModel = (table: Table): Entity<OrderItem> => {
+const generateOrderItemModel = (table: Table<string, 'pk', 'sk'>) => {
   const setOrderItemPk = (data: OrderItem) => (`ITEM#${data.itemId}`);
   const setOrderItemSk = (data: OrderItem) => (`ORDER#${data.orderId}`);
   const setOrderItemGSI1PK = setOrderItemSk;

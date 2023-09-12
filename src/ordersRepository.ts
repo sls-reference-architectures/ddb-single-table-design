@@ -1,8 +1,7 @@
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import { NotFound } from 'http-errors';
 
 import ECommerceModels from './dbModels';
-import { Order, OrderItem } from './models';
+import { Order } from './models';
 
 export default class OrdersRepository {
   private models: ECommerceModels;
@@ -17,7 +16,7 @@ export default class OrdersRepository {
     return Items as Order[];
   }
 
-  async getOrderById(orderId: string): Promise<Order> {
+  async getOrderById(orderId: string) {
     const queryOptions = {
       index: 'GSI-1',
       beginsWith: 'USER#',
@@ -30,7 +29,7 @@ export default class OrdersRepository {
     return Items[0];
   }
 
-  async getOrderItemsByOrderId(orderId: string): Promise<OrderItem[]> {
+  async getOrderItemsByOrderId(orderId: string) {
     const queryOptions = {
       index: 'GSI-1',
       beginsWith: 'ITEM#',
@@ -40,7 +39,7 @@ export default class OrdersRepository {
     return Items;
   }
 
-  async getOrdersByUserByStatus(params: OrdersByStatusParams): Promise<Order[]> {
+  async getOrdersByUserByStatus(params: OrdersByStatusParams) {
     const queryOptions = {
       index: 'GSI-2',
       beginsWith: `${params.status.toUpperCase()}#`,
@@ -72,6 +71,6 @@ interface UpdateStatusParams {
   username: string,
 }
 
-interface ToolboxUpdateParams extends Partial<DocumentClient.UpdateItemInput> {
+interface ToolboxUpdateParams {
   REMOVE?: string[],
 }

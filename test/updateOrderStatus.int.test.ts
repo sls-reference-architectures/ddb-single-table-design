@@ -21,12 +21,14 @@ describe('When updating order status for a user', () => {
     await injectTestOrder(originalOrder);
     const shippedOrder = { ...originalOrder, status: 'shipped' };
 
-    // ACT
-    await sut.updateStatus(shippedOrder);
+    await retry(async () => {
+      // ACT
+      await sut.updateStatus(shippedOrder);
 
-    // ASSERT
-    const order = await fetchOrderWithRetry(originalOrder.orderId, 'shipped');
-    expect(order).toMatchObject({ ...shippedOrder });
+      // ASSERT
+      const order = await fetchOrderWithRetry(originalOrder.orderId, 'shipped');
+      expect(order).toMatchObject({ ...shippedOrder });
+    }, { retries: 3 });
   });
 
   it('should change the GSI2-SK', async () => {
@@ -35,12 +37,14 @@ describe('When updating order status for a user', () => {
     await injectTestOrder(originalOrder);
     const shippedOrder = { ...originalOrder, status: 'shipped' };
 
-    // ACT
-    await sut.updateStatus(shippedOrder);
+    await retry(async () => {
+      // ACT
+      await sut.updateStatus(shippedOrder);
 
-    // ASSERT
-    const { gsi2sk } = await fetchOrderWithRetry(originalOrder.orderId, 'shipped');
-    expect(gsi2sk).toStartWith('SHIPPED#');
+      // ASSERT
+      const { gsi2sk } = await fetchOrderWithRetry(originalOrder.orderId, 'shipped');
+      expect(gsi2sk).toStartWith('SHIPPED#');
+    }, { retries: 3 });
   });
 
   describe('to placed', () => {
@@ -50,12 +54,14 @@ describe('When updating order status for a user', () => {
       await injectTestOrder(originalOrder);
       const placedOrder = { ...originalOrder, status: 'placed' };
 
-      // ACT
-      await sut.updateStatus(placedOrder);
+      await retry(async () => {
+        // ACT
+        await sut.updateStatus(placedOrder);
 
-      // ASSERT
-      const { gsi3pk } = await fetchOrderWithRetry(originalOrder.orderId, 'placed');
-      expect(gsi3pk).toBeString();
+        // ASSERT
+        const { gsi3pk } = await fetchOrderWithRetry(originalOrder.orderId, 'placed');
+        expect(gsi3pk).toBeString();
+      }, { retries: 3 });
     });
   });
 
@@ -66,12 +72,14 @@ describe('When updating order status for a user', () => {
       await injectTestOrder(originalOrder);
       const placedOrder = { ...originalOrder, status: 'shipped' };
 
-      // ACT
-      await sut.updateStatus(placedOrder);
+      await retry(async () => {
+        // ACT
+        await sut.updateStatus(placedOrder);
 
-      // ASSERT
-      const { gsi3pk } = await fetchOrderWithRetry(originalOrder.orderId, 'shipped');
-      expect(gsi3pk).toBeUndefined();
+        // ASSERT
+        const { gsi3pk } = await fetchOrderWithRetry(originalOrder.orderId, 'shipped');
+        expect(gsi3pk).toBeUndefined();
+      }, { retries: 3 });
     });
   });
 

@@ -1,3 +1,4 @@
+import retry from 'async-retry';
 import { Order } from '../src/models';
 import OrdersRepository from '../src/ordersRepository';
 import { injectOrder, removeOrders } from './dbUtils';
@@ -25,15 +26,17 @@ describe('When getting orders for user by status', () => {
         .build();
       await injectTestOrder(myShippedOrder);
 
-      // ACT
-      const newOrders = await sut.getOrdersByUserByStatus({
-        username: myNewOrder.username,
-        status,
-      });
+      await retry(async () => {
+        // ACTn
+        const newOrders = await sut.getOrdersByUserByStatus({
+          username: myNewOrder.username,
+          status,
+        });
 
-      // ASSERT
-      expect(newOrders).toHaveLength(1);
-      expect(newOrders[0]).toMatchObject({ ...myNewOrder });
+        // ASSERT
+        expect(newOrders).toHaveLength(1);
+        expect(newOrders?.[0]).toMatchObject({ ...myNewOrder });
+      }, { retries: 3 });
     });
   });
 

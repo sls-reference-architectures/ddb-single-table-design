@@ -42,7 +42,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.429.0",
+    "@aws-sdk/client-dynamodb": "^3.433.0",
     "@aws-sdk/lib-dynamodb": "^3.431.0",
     "@dazn/lambda-powertools-logger": "^1.28.1",
     "@types/config": "^3.3.1",

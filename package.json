@@ -47,7 +47,7 @@
     "@dazn/lambda-powertools-logger": "^1.28.1",
     "@types/config": "^3.3.3",
     "@types/http-errors": "^2.0.4",
-    "config": "^3.3.9",
+    "config": "^3.3.10",
     "dynamodb-toolbox": "^0.9.2",
     "http-errors": "^2.0.0",
     "ulid": "^2.3.0"

@@ -39,7 +39,7 @@
     "jest-extended": "^4.0.2",
     "serverless": "^3.39.0",
     "serverless-deployment-bucket": "^1.6.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.602.0",

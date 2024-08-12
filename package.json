@@ -23,7 +23,7 @@
   "homepage": "https://github.com/sls-reference-architectures/ddb-single-table-design#readme",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@swc/core": "^1.7.6",
+    "@swc/core": "^1.7.10",
     "@swc/jest": "^0.2.36",
     "@tsconfig/node18": "^18.2.4",
     "@types/async-retry": "^1.4.8",

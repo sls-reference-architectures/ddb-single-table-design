@@ -61,18 +61,20 @@ describe('When getting orders for user by status', () => {
         status: 'borked',
       });
 
-      // ACT
-      const result = await sut.getOrdersByUserByStatus({
-        username: order.username, status: 'borked',
-      });
+      await retry(async () => {
+        // ACT
+        const result = await sut.getOrdersByUserByStatus({
+          username: order.username, status: 'borked',
+        });
 
-      // ASSERT
-      expect(result).toHaveLength(1);
-      expect(result).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ ...order, status: 'borked' }),
-        ]),
-      );
+        // ASSERT
+        expect(result).toHaveLength(1);
+        expect(result).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({ ...order, status: 'borked' }),
+          ]),
+        );
+      }, { retries: 3 });
     });
   });
 

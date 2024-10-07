@@ -48,7 +48,7 @@
     "@types/config": "^3.3.4",
     "@types/http-errors": "^2.0.4",
     "config": "^3.3.12",
-    "dynamodb-toolbox": "^0.9.5",
+    "dynamodb-toolbox": "^1.10.2",
     "http-errors": "^2.0.0",
     "ulid": "^2.3.0"
   }

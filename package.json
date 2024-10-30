@@ -26,7 +26,7 @@
     "@swc/core": "^1.7.22",
     "@swc/jest": "^0.2.36",
     "@tsconfig/node18": "^18.2.4",
-    "@types/async-retry": "^1.4.8",
+    "@types/async-retry": "^1.4.9",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.11.0",

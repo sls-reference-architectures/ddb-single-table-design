@@ -27,7 +27,7 @@ describe('When using Orders repository', () => {
 
     it('should retrieve all his orders', async () => {
       // ARRANGE
-      const username = faker.internet.userName();
+      const username = faker.internet.username();
       const testOrder1 = await injectTestOrder(username);
       const testOrder2 = await injectTestOrder(username);
 

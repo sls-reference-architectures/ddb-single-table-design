@@ -110,7 +110,7 @@ const fetchOrderWithRetry = async (orderId, status) => {
       };
       const {
         Items: [order],
-      } = await models.orders.query(`ORDER#${orderId}`, queryOptions);
+      } = await models.orders().query(`ORDER#${orderId}`, queryOptions);
       if (order && order.status !== status) {
         throw Error();
       }

@@ -8,7 +8,7 @@ export default class OrdersRepository {
   }
 
   async getOrdersByUser(username) {
-    const { Items } = await this.models.orders.query(`USER#${username}`);
+    const { Items } = await this.models.orders().query(`USER#${username}`);
 
     return Items;
   }
@@ -18,7 +18,7 @@ export default class OrdersRepository {
       index: 'GSI-1',
       beginsWith: 'USER#',
     };
-    const { Items } = await this.models.orders.query(`ORDER#${orderId}`, queryOptions);
+    const { Items } = await this.models.orders().query(`ORDER#${orderId}`, queryOptions);
     if (Items.length === 0) {
       throw new NotFound();
     }
@@ -31,7 +31,7 @@ export default class OrdersRepository {
       index: 'GSI-1',
       beginsWith: 'ITEM#',
     };
-    const { Items } = await this.models.orderItems.query(`ORDER#${orderId}`, queryOptions);
+    const { Items } = await this.models.orderItems().query(`ORDER#${orderId}`, queryOptions);
 
     return Items;
   }
@@ -41,7 +41,7 @@ export default class OrdersRepository {
       index: 'GSI-2',
       beginsWith: `${params.status.toUpperCase()}#`,
     };
-    const { Items } = await this.models.orderItems.query(`USER#${params.username}`, queryOptions);
+    const { Items } = await this.models.orderItems().query(`USER#${params.username}`, queryOptions);
 
     return Items;
   }
@@ -51,7 +51,7 @@ export default class OrdersRepository {
     if (orderIsNoLongerPlaced(params)) {
       updateParameters.REMOVE = ['gsi3pk'];
     }
-    await this.models.orders.update(params, {}, updateParameters);
+    await this.models.orders().update(params, {}, updateParameters);
   }
 }
 

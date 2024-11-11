@@ -9,7 +9,7 @@ export default class UsersRepository {
   }
 
   async getUser(username) {
-    const { Item: user } = await this.models.users.get({ username });
+    const { Item: user } = await this.models.users().get({ username });
     if (!user) {
       Logger.debug('Could not find user', { username });
       throw new NotFound();

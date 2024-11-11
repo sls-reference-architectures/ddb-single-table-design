@@ -27,7 +27,7 @@ export default class OrderBuilder {
   }
 }
 
-const generateTestOrder = (username = `${faker.internet.userName()}_${ulid()}`) => ({
+const generateTestOrder = (username = `${faker.internet.username()}_${ulid()}`) => ({
   username,
   orderId: ulid(),
   shippingAddress: generateAddress(),

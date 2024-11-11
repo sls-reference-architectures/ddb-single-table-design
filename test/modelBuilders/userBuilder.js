@@ -11,7 +11,7 @@ export default class UserBuilder {
 }
 
 const generateTestUser = () => ({
-  username: faker.internet.userName(),
+  username: faker.internet.username(),
   dateOfBirth: faker.date.past().toISOString(),
   email: faker.internet.email(),
   fullName: faker.person.fullName(),

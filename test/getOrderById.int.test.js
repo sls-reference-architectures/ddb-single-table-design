@@ -1,12 +1,11 @@
 import retry from 'async-retry';
 
-import { Order } from '../src/models';
 import OrdersRepository from '../src/ordersRepository';
 import { injectOrder, removeOrders } from './dbUtils';
 import { OrderBuilder } from './modelBuilders';
 
 describe('When using Orders repository', () => {
-  const testOrders: Order[] = [];
+  const testOrders = [];
   const sut = new OrdersRepository();
 
   afterAll(async () => {
@@ -19,7 +18,7 @@ describe('When using Orders repository', () => {
       const testOrder = await injectTestOrder();
 
       // ACT
-      const order = await retry<Order>(async () => sut.getOrderById(testOrder.orderId));
+      const order = await retry(async () => sut.getOrderById(testOrder.orderId));
 
       // ASSERT
       expect(order).toMatchObject({ ...testOrder });
@@ -37,7 +36,7 @@ describe('When using Orders repository', () => {
     });
   });
 
-  const injectTestOrder = async (): Promise<Order> => {
+  const injectTestOrder = async () => {
     const testOrder = new OrderBuilder().build();
     await injectOrder(testOrder);
     testOrders.push(testOrder);

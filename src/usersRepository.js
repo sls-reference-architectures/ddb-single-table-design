@@ -2,16 +2,13 @@ import Logger from '@dazn/lambda-powertools-logger';
 import { NotFound } from 'http-errors';
 
 import ECommerceModels from './dbModels';
-import { UserProfile } from './models';
 
 export default class UsersRepository {
-  private models: ECommerceModels;
-
   constructor() {
     this.models = new ECommerceModels();
   }
 
-  async getUser(username: string): Promise<UserProfile> {
+  async getUser(username) {
     const { Item: user } = await this.models.users.get({ username });
     if (!user) {
       Logger.debug('Could not find user', { username });

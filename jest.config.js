@@ -3,5 +3,5 @@ module.exports = {
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest',
   },
-  setupFilesAfterEnv: ['./test/setupFramework.ts'],
+  setupFilesAfterEnv: ['./test/setupFramework.js'],
 };

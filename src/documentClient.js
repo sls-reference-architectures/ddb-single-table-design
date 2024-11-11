@@ -5,7 +5,7 @@ const DynamoDbConfig = {
   region: 'us-east-1',
 };
 
-let client: DynamoDBDocumentClient;
+let client;
 
 const getDocumentClient = () => {
   if (client) {

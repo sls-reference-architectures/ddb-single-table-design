@@ -1,13 +1,12 @@
 import retry from 'async-retry';
 import { faker } from '@faker-js/faker';
 
-import { Order } from '../src/models';
 import OrdersRepository from '../src/ordersRepository';
 import { injectOrder, removeOrders } from './dbUtils';
 import { OrderBuilder } from './modelBuilders';
 
 describe('When using Orders repository', () => {
-  const testOrders: Order[] = [];
+  const testOrders = [];
   const sut = new OrdersRepository();
 
   afterAll(async () => {
@@ -40,7 +39,7 @@ describe('When using Orders repository', () => {
       expect(result[1]).toMatchObject({ ...testOrder2 });
     });
 
-    it('should not retrieve another user\'s orders', async () => {
+    it("should not retrieve another user's orders", async () => {
       // ARRANGE
       const myOrder = await injectTestOrder();
       await injectTestOrder('someone else owns this order');
@@ -54,7 +53,7 @@ describe('When using Orders repository', () => {
     });
   });
 
-  const injectTestOrder = async (username?: string): Promise<Order> => {
+  const injectTestOrder = async (username) => {
     const testOrder = new OrderBuilder().withUsername(username).build();
     await injectOrder(testOrder);
     testOrders.push(testOrder);
@@ -62,11 +61,8 @@ describe('When using Orders repository', () => {
     return testOrder;
   };
 
-  const getOrdersByUserWithRetry = async (
-    username: string,
-    expectedCount = 1,
-  ): Promise<Order[]> => {
-    const result = await retry<Order[]>(async () => {
+  const getOrdersByUserWithRetry = async (username, expectedCount = 1) => {
+    const result = await retry(async () => {
       const orders = await sut.getOrdersByUser(username);
       if (orders.length !== expectedCount) {
         throw Error();

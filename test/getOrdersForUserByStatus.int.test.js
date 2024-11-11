@@ -1,11 +1,10 @@
 import retry from 'async-retry';
-import { Order } from '../src/models';
 import OrdersRepository from '../src/ordersRepository';
 import { injectOrder, removeOrders } from './dbUtils';
 import { OrderBuilder } from './modelBuilders';
 
 describe('When getting orders for user by status', () => {
-  const testOrders: Order[] = [];
+  const testOrders = [];
   const sut = new OrdersRepository();
 
   afterAll(async () => {
@@ -16,9 +15,7 @@ describe('When getting orders for user by status', () => {
     it('should return the correct orders, and only those orders', async () => {
       // ARRANGE
       const status = 'new';
-      const myNewOrder = new OrderBuilder()
-        .withStatus(status)
-        .build();
+      const myNewOrder = new OrderBuilder().withStatus(status).build();
       await injectTestOrder(myNewOrder);
       const myShippedOrder = new OrderBuilder()
         .withStatus('shipped')
@@ -26,22 +23,25 @@ describe('When getting orders for user by status', () => {
         .build();
       await injectTestOrder(myShippedOrder);
 
-      await retry(async () => {
-        // ACTn
-        const newOrders = await sut.getOrdersByUserByStatus({
-          username: myNewOrder.username,
-          status,
-        });
+      await retry(
+        async () => {
+          // ACTn
+          const newOrders = await sut.getOrdersByUserByStatus({
+            username: myNewOrder.username,
+            status,
+          });
 
-        // ASSERT
-        expect(newOrders).toHaveLength(1);
-        expect(newOrders?.[0]).toMatchObject({ ...myNewOrder });
-      }, { retries: 3 });
+          // ASSERT
+          expect(newOrders).toHaveLength(1);
+          expect(newOrders?.[0]).toMatchObject({ ...myNewOrder });
+        },
+        { retries: 3 },
+      );
     });
   });
 
   describe('with an updated status', () => {
-    let order: Order;
+    let order;
 
     beforeEach(async () => {
       order = new OrderBuilder().withStatus('new').build();
@@ -61,24 +61,26 @@ describe('When getting orders for user by status', () => {
         status: 'borked',
       });
 
-      await retry(async () => {
-        // ACT
-        const result = await sut.getOrdersByUserByStatus({
-          username: order.username, status: 'borked',
-        });
+      await retry(
+        async () => {
+          // ACT
+          const result = await sut.getOrdersByUserByStatus({
+            username: order.username,
+            status: 'borked',
+          });
 
-        // ASSERT
-        expect(result).toHaveLength(1);
-        expect(result).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({ ...order, status: 'borked' }),
-          ]),
-        );
-      }, { retries: 3 });
+          // ASSERT
+          expect(result).toHaveLength(1);
+          expect(result).toEqual(
+            expect.arrayContaining([expect.objectContaining({ ...order, status: 'borked' })]),
+          );
+        },
+        { retries: 3 },
+      );
     });
   });
 
-  const injectTestOrder = async (testOrder: Order): Promise<void> => {
+  const injectTestOrder = async (testOrder) => {
     await injectOrder(testOrder);
     testOrders.push(testOrder);
   };

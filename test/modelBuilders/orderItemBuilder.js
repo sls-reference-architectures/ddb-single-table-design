@@ -1,15 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { ulid } from 'ulid';
-import { OrderItem } from '../../src/models';
 
 export default class OrderItemBuilder {
-  private readonly orderItem: OrderItem;
-
   constructor() {
     this.orderItem = generateTestOrderItem();
   }
 
-  withOrderId(orderId?: string): OrderItemBuilder {
+  withOrderId(orderId) {
     if (orderId) {
       this.orderItem.orderId = orderId;
     }
@@ -17,14 +14,12 @@ export default class OrderItemBuilder {
     return this;
   }
 
-  build(): OrderItem {
+  build() {
     return this.orderItem;
   }
 }
 
-const generateTestOrderItem = (
-  orderId: string = ulid(),
-): OrderItem => ({
+const generateTestOrderItem = (orderId = ulid()) => ({
   orderId,
   itemId: ulid(),
   productName: faker.commerce.productName(),

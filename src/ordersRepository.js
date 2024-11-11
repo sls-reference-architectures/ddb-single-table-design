@@ -1,22 +1,19 @@
 import { NotFound } from 'http-errors';
 
 import ECommerceModels from './dbModels';
-import { Order } from './models';
 
 export default class OrdersRepository {
-  private models: ECommerceModels;
-
   constructor() {
     this.models = new ECommerceModels();
   }
 
-  async getOrdersByUser(username: string): Promise<Order[]> {
+  async getOrdersByUser(username) {
     const { Items } = await this.models.orders.query(`USER#${username}`);
 
-    return Items as Order[];
+    return Items;
   }
 
-  async getOrderById(orderId: string) {
+  async getOrderById(orderId) {
     const queryOptions = {
       index: 'GSI-1',
       beginsWith: 'USER#',
@@ -29,7 +26,7 @@ export default class OrdersRepository {
     return Items[0];
   }
 
-  async getOrderItemsByOrderId(orderId: string) {
+  async getOrderItemsByOrderId(orderId) {
     const queryOptions = {
       index: 'GSI-1',
       beginsWith: 'ITEM#',
@@ -39,7 +36,7 @@ export default class OrdersRepository {
     return Items;
   }
 
-  async getOrdersByUserByStatus(params: OrdersByStatusParams) {
+  async getOrdersByUserByStatus(params) {
     const queryOptions = {
       index: 'GSI-2',
       beginsWith: `${params.status.toUpperCase()}#`,
@@ -49,8 +46,8 @@ export default class OrdersRepository {
     return Items;
   }
 
-  async updateStatus(params: UpdateStatusParams): Promise<void> {
-    const updateParameters: ToolboxUpdateParams = {};
+  async updateStatus(params) {
+    const updateParameters = {};
     if (orderIsNoLongerPlaced(params)) {
       updateParameters.REMOVE = ['gsi3pk'];
     }
@@ -58,19 +55,4 @@ export default class OrdersRepository {
   }
 }
 
-const orderIsNoLongerPlaced = (params: UpdateStatusParams): boolean => (params.status.toLowerCase() !== 'placed');
-
-interface OrdersByStatusParams {
-  status: string,
-  username: string,
-}
-
-interface UpdateStatusParams {
-  orderId: string,
-  status: string,
-  username: string,
-}
-
-interface ToolboxUpdateParams {
-  REMOVE?: string[],
-}
+const orderIsNoLongerPlaced = (params) => params.status.toLowerCase() !== 'placed';

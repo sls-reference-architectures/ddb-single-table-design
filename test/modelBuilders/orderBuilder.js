@@ -1,15 +1,12 @@
 import { faker } from '@faker-js/faker';
 import { ulid } from 'ulid';
-import { Address, Order } from '../../src/models';
 
 export default class OrderBuilder {
-  private readonly order: Order;
-
   constructor() {
     this.order = generateTestOrder();
   }
 
-  withUsername(username?: string): OrderBuilder {
+  withUsername(username) {
     if (username) {
       this.order.username = username;
     }
@@ -17,7 +14,7 @@ export default class OrderBuilder {
     return this;
   }
 
-  withStatus(status?: string): OrderBuilder {
+  withStatus(status) {
     if (status) {
       this.order.status = status;
     }
@@ -25,21 +22,19 @@ export default class OrderBuilder {
     return this;
   }
 
-  build(): Order {
+  build() {
     return this.order;
   }
 }
 
-const generateTestOrder = (
-  username = `${faker.internet.userName()}_${ulid()}`,
-): Order => ({
+const generateTestOrder = (username = `${faker.internet.userName()}_${ulid()}`) => ({
   username,
   orderId: ulid(),
   shippingAddress: generateAddress(),
   status: faker.helpers.arrayElement(['new', 'shipped', 'canceled']),
 });
 
-const generateAddress = (): Address => ({
+const generateAddress = () => ({
   street: faker.location.streetAddress(),
   postalCode: faker.location.zipCode(),
   state: faker.location.state(),

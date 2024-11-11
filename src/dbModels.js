@@ -1,19 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table, Entity } from 'dynamodb-toolbox';
 import { ulid } from 'ulid';
 
 import config from './config';
-import { UserProfile, Order, OrderItem } from './models';
 import getDocumentClient from './documentClient';
 
 const documentClient = getDocumentClient();
 
 class ECommerceModels {
-  private usersEntity: Entity<'UserProfile', any, any, any, true>;
-  private ordersEntity: Entity<'Order', any, any, any, true>;
-  private orderItemsEntity: Entity<'OrderItem', any, any, any, true>;
-  private tableReference: Table<'string', 'pk', 'sk'>;
-
   constructor() {
     this.tableReference = generateECommerceTable();
     this.usersEntity = generateUserModel(this.tableReference);
@@ -21,19 +14,19 @@ class ECommerceModels {
     this.orderItemsEntity = generateOrderItemModel(this.tableReference);
   }
 
-  public get orders() {
+  orders() {
     return this.ordersEntity;
   }
 
-  public get users() {
+  users() {
     return this.usersEntity;
   }
 
-  public get orderItems() {
+  orderItems() {
     return this.orderItemsEntity;
   }
 
-  public get table() {
+  table() {
     return this.tableReference;
   }
 }
@@ -53,9 +46,9 @@ const generateECommerceTable = () => {
   return ECommerceTable;
 };
 
-const generateUserModel = (table: Table<string, 'pk', 'sk'>) => {
-  const setUserPk = (data: UserProfile) => (`USER#${data.username}`);
-  const setUserSk = (data: UserProfile) => (`#PROFILE#${data.username}`);
+const generateUserModel = (table) => {
+  const setUserPk = (data) => `USER#${data.username}`;
+  const setUserSk = (data) => `#PROFILE#${data.username}`;
 
   return new Entity({
     name: 'UserProfile',
@@ -73,14 +66,14 @@ const generateUserModel = (table: Table<string, 'pk', 'sk'>) => {
   });
 };
 
-const generateOrderModel = (table: Table<string, 'pk', 'sk'>) => {
-  const setOrderPk = (data: Order) => (`USER#${data.username}`);
-  const setOrderSk = (data: Order) => (`ORDER#${data.orderId}`);
+const generateOrderModel = (table) => {
+  const setOrderPk = (data) => `USER#${data.username}`;
+  const setOrderSk = (data) => `ORDER#${data.orderId}`;
   const setOrderGSI1PK = setOrderSk;
   const setOrderGSI1SK = setOrderPk;
   const setOrderGSI2PK = setOrderPk;
-  const setOrderGSI2SK = (data: Order) => (`${data.status.toUpperCase()}#${new Date().toISOString()}`);
-  const setOrderGSI3PK = (data: Order) => {
+  const setOrderGSI2SK = (data) => `${data.status.toUpperCase()}#${new Date().toISOString()}`;
+  const setOrderGSI3PK = (data) => {
     if (data.status.toLowerCase() === 'placed') {
       return ulid();
     }
@@ -108,9 +101,9 @@ const generateOrderModel = (table: Table<string, 'pk', 'sk'>) => {
   });
 };
 
-const generateOrderItemModel = (table: Table<string, 'pk', 'sk'>) => {
-  const setOrderItemPk = (data: OrderItem) => (`ITEM#${data.itemId}`);
-  const setOrderItemSk = (data: OrderItem) => (`ORDER#${data.orderId}`);
+const generateOrderItemModel = (table) => {
+  const setOrderItemPk = (data) => `ITEM#${data.itemId}`;
+  const setOrderItemSk = (data) => `ORDER#${data.orderId}`;
   const setOrderItemGSI1PK = setOrderItemSk;
   const setOrderItemGSI1SK = setOrderItemPk;
 

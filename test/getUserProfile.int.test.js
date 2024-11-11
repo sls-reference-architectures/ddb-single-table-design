@@ -1,12 +1,11 @@
 import retry from 'async-retry';
 
 import { removeUsers, injectUser } from './dbUtils';
-import { UserProfile } from '../src/models';
 import UsersRepository from '../src/usersRepository';
 import { UserBuilder } from './modelBuilders';
 
 describe('When using Users Repository', () => {
-  const testUsers: UserProfile[] = [];
+  const testUsers = [];
   const sut = new UsersRepository();
 
   afterAll(async () => {
@@ -21,7 +20,7 @@ describe('When using Users Repository', () => {
       testUsers.push(userProfile);
 
       // ACT
-      const result = await retry<UserProfile>(async () => sut.getUser(userProfile.username));
+      const result = await retry(async () => sut.getUser(userProfile.username));
 
       // ASSERT
       expect(result).toMatchObject({ ...userProfile });

@@ -1,19 +1,16 @@
 import { faker } from '@faker-js/faker';
-import { Address, UserProfile } from '../../src/models';
 
 export default class UserBuilder {
-  private readonly user: UserProfile;
-
   constructor() {
     this.user = generateTestUser();
   }
 
-  build(): UserProfile {
+  build() {
     return this.user;
   }
 }
 
-const generateTestUser = (): UserProfile => ({
+const generateTestUser = () => ({
   username: faker.internet.userName(),
   dateOfBirth: faker.date.past().toISOString(),
   email: faker.internet.email(),
@@ -23,7 +20,7 @@ const generateTestUser = (): UserProfile => ({
   },
 });
 
-const generateAddress = (): Address => ({
+const generateAddress = () => ({
   street: faker.location.streetAddress(),
   postalCode: faker.location.zipCode(),
   state: faker.location.state(),

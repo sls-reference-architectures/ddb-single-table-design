@@ -1,19 +1,13 @@
 import retry from 'async-retry';
 
-import { Order, OrderItem } from '../src/models';
 import OrdersRepository from '../src/ordersRepository';
-import {
-  injectOrder,
-  injectOrderItem,
-  removeOrderItems,
-  removeOrders,
-} from './dbUtils';
+import { injectOrder, injectOrderItem, removeOrderItems, removeOrders } from './dbUtils';
 import { OrderBuilder } from './modelBuilders';
 import OrderItemBuilder from './modelBuilders/orderItemBuilder';
 
 describe('When using OrderItems repository to get items for an order', () => {
-  const testOrders: Order[] = [];
-  const testOrderItems: OrderItem[] = [];
+  const testOrders = [];
+  const testOrderItems = [];
   const sut = new OrdersRepository();
 
   afterAll(async () => {
@@ -70,7 +64,7 @@ describe('When using OrderItems repository to get items for an order', () => {
     });
   });
 
-  const injectTestOrder = async (username?: string): Promise<Order> => {
+  const injectTestOrder = async (username) => {
     const testOrder = new OrderBuilder().withUsername(username).build();
     await injectOrder(testOrder);
     testOrders.push(testOrder);
@@ -78,7 +72,7 @@ describe('When using OrderItems repository to get items for an order', () => {
     return testOrder;
   };
 
-  const injectTestOrderItem = async (orderId: string): Promise<OrderItem> => {
+  const injectTestOrderItem = async (orderId) => {
     const testOrderItem = new OrderItemBuilder().withOrderId(orderId).build();
     await injectOrderItem(testOrderItem);
     testOrderItems.push(testOrderItem);
@@ -86,18 +80,18 @@ describe('When using OrderItems repository to get items for an order', () => {
     return testOrderItem;
   };
 
-  const getOrderItemsWithRetry = async (
-    orderId: string,
-    expectedNumber = 1,
-  ): Promise<OrderItem[]> => {
-    const result = await retry<OrderItem[]>(async () => {
-      const orderItems = await sut.getOrderItemsByOrderId(orderId);
-      if (orderItems.length !== expectedNumber) {
-        throw Error();
-      }
+  const getOrderItemsWithRetry = async (orderId, expectedNumber = 1) => {
+    const result = await retry(
+      async () => {
+        const orderItems = await sut.getOrderItemsByOrderId(orderId);
+        if (orderItems.length !== expectedNumber) {
+          throw Error();
+        }
 
-      return orderItems;
-    }, { retries: 3 });
+        return orderItems;
+      },
+      { retries: 3 },
+    );
 
     return result;
   };

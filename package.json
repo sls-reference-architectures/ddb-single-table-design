@@ -43,8 +43,6 @@
     "@aws-sdk/client-dynamodb": "^3.682.0",
     "@aws-sdk/lib-dynamodb": "^3.689.0",
     "@dazn/lambda-powertools-logger": "^1.28.1",
-    "@types/config": "^3.3.5",
-    "@types/http-errors": "^2.0.4",
     "config": "^3.3.12",
     "dynamodb-toolbox": "^0.9.5",
     "http-errors": "^2.0.0",

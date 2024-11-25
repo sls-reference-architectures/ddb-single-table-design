@@ -40,7 +40,7 @@
     "serverless-deployment-bucket": "^1.6.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.682.0",
+    "@aws-sdk/client-dynamodb": "^3.699.0",
     "@aws-sdk/lib-dynamodb": "^3.693.0",
     "@dazn/lambda-powertools-logger": "^1.28.1",
     "config": "^3.3.12",

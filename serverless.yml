@@ -9,7 +9,7 @@ custom:
 provider:
   logRetentionInDays: 7
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
   stage: dev
   deploymentBucket:
     name: com.reference-architecture.deploys

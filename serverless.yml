@@ -1,6 +1,6 @@
 service: ddb-single-table-design
 
-frameworkVersion: '3'
+licenseKey: ${ssm:/aws/reference/secretsmanager/serverless-framework-access-key}
 
 custom:
   stage: ${opt:stage, self:provider.stage}

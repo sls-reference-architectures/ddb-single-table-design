@@ -36,7 +36,7 @@
     "jest-extended": "^4.0.2",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
-    "serverless": "^3.39.0",
+    "serverless": "^4.4.16",
     "serverless-deployment-bucket": "^1.6.0"
   },
   "dependencies": {

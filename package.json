@@ -8,7 +8,8 @@
     "test:int": "NODE_ENV=dev npx jest int.test --testTimeout=30000",
     "lint": "eslint .",
     "prepare": "husky",
-    "deploy": "npx sls deploy -s dev"
+    "deploy": "npx sls deploy -s dev",
+    "teardown": "npx sls remove -s dev"
   },
   "repository": {
     "type": "git",

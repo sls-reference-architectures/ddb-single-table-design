@@ -39,3 +39,5 @@ jobs:
         run: npm run test:int
         env:
           NODE_ENV: dev
+      - name: Tear down stack
+        run: npm run teardown

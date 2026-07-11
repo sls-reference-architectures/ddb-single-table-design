@@ -16,7 +16,7 @@
     "url": "git+https://github.com/sls-reference-architectures/ddb-single-table-design.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sls-reference-architectures/ddb-single-table-design/issues"
   },

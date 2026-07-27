@@ -35,7 +35,7 @@
     "husky": "^9.1.7",
     "jest": "^30.4.2",
     "jest-extended": "^7.0.0",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^17.1.1",
     "prettier": "^3.4.2",
     "serverless": "^4.4.16",
     "serverless-deployment-bucket": "^1.6.0"

@@ -47,7 +47,7 @@
     "config": "^4.4.2",
     "dynamodb-toolbox": "^0.9.5",
     "http-errors": "^2.0.0",
-    "ulid": "^2.3.0"
+    "ulid": "^3.0.2"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --cache --fix",

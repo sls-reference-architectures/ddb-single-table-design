@@ -1,7 +1,9 @@
-import Logger from '@dazn/lambda-powertools-logger';
+import { Logger } from '@aws-lambda-powertools/logger';
 import { NotFound } from 'http-errors';
 
 import ECommerceModels from './dbModels';
+
+const logger = new Logger({ serviceName: 'ddb-single-table-design' });
 
 export default class UsersRepository {
   constructor() {
@@ -11,7 +13,7 @@ export default class UsersRepository {
   async getUser(username) {
     const { Item: user } = await this.models.users().get({ username });
     if (!user) {
-      Logger.debug('Could not find user', { username });
+      logger.debug('Could not find user', { username });
       throw new NotFound();
     }
 

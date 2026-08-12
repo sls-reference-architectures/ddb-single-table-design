@@ -1,7 +1,8 @@
 module.exports = {
   testEnvironment: 'node',
   transform: {
-    '^.+\\.(t|j)sx?$': '@swc/jest',
+    '^.+\\.[cm]?[tj]sx?$': '@swc/jest',
   },
+  transformIgnorePatterns: ['node_modules/(?!(config|@faker-js/faker)/)'],
   setupFilesAfterEnv: ['./test/setupFramework.js'],
 };

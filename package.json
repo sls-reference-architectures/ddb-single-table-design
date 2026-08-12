@@ -45,7 +45,7 @@
     "@aws-sdk/client-dynamodb": "^3.1097.0",
     "@aws-sdk/lib-dynamodb": "^3.1106.0",
     "config": "^5.0.0",
-    "dynamodb-toolbox": "^0.9.5",
+    "dynamodb-toolbox": "^2.10.4",
     "http-errors": "^2.0.0",
     "ulid": "^3.0.2"
   },

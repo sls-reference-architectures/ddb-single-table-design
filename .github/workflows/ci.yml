@@ -9,6 +9,9 @@ on:
   schedule:
     - cron: 0 13 * * *
 
+# Shared with teardown.yml so the weekly teardown can never overlap a build.
+concurrency: build-deploy-test
+
 # These permissions are needed to interact with GitHub's OIDC Token endpoint.
 permissions:
   id-token: write
@@ -39,5 +42,3 @@ jobs:
         run: npm run test:int
         env:
           NODE_ENV: dev
-      - name: Tear down stack
-        run: npm run teardown
